@@ -129,5 +129,22 @@ public class CategoryDetailDao {
         return categoryDetails;
     }
 
-
+    public ArrayList<CategoryDetail> searchByCategoryName(String name) {
+        ArrayList<CategoryDetail> categoryDetails = new ArrayList<>();
+        try {
+            Connection connection = JDBCUtil.getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM categorydetail WHERE name LIKE '%" + name + "%'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("categoryDetailId");
+                String cate = resultSet.getString("name");
+                CategoryDetail categoryDetail = new CategoryDetail(id, cate);
+                categoryDetails.add(categoryDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoryDetails;
+    }
 }

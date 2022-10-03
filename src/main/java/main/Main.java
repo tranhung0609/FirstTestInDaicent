@@ -10,9 +10,11 @@ import model.Product;
 public class Main {
     public static void main(String[] args) {
 //        Test insert
-//        Product product = new Product(1, "Iphone 12", 20000000, new CategoryDetail(1, "Iphone", new Category(1, "Apple")));
-//        Product product1 = new Product(2, "Iphone 13", 20000, new CategoryDetail(1, "Iphone", new Category(1, "Apple")));
-//        ProductDAO.getInstance().insert(product1);
+//        Product product1 = new Product(2, "Iphone 13", 20000, new CategoryDetail(7, "Iphone", new Category(1, "Apple")));
+//        Product product2 = new Product(3, "Iphone 14", 200003, new CategoryDetail(7, "Iphone", new Category(1, "Apple")));
+//        Product product3 = new Product(4, "Iphone 12", 200002, new CategoryDetail(7, "Iphone", new Category(1, "Apple")));
+//        ProductDAO.getInstance().insert(product2);
+//        ProductDAO.getInstance().insert(product3);
 
 //        Test update
 //        Product product2 = new Product(1, "Iphone 12 pro max", 20000000, new CategoryDetail(1, "Iphone", new Category(1, "Apple")));
@@ -58,5 +60,15 @@ public class Main {
 //        Test selectAllCategory
 //        CategoryDAO.getInstance().selectAll().forEach(System.out::println);
 
+
+
+//        Test search
+//        ProductDAO.getInstance().search("Iphone").forEach(System.out::println);
+
+//        Test searchByCategory
+//        CategoryDAO.getInstance().searchByCategory("A").forEach(System.out::println);
+
+//        Test searchByCategoryDetail
+        CategoryDetailDao.getInstance().searchByCategoryName("s").forEach(System.out::println);
     }
 }

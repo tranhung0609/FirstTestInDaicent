@@ -134,5 +134,25 @@ public class ProductDAO implements DAOInterface<Product> {
         return products;
     }
 
-
+    public ArrayList<Product> search(String name) {
+        ArrayList<Product> products = new ArrayList<Product>();
+        try {
+            Connection connection = JDBCUtil.getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM product WHERE name LIKE '%" + name + "%'";
+            java.sql.ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setPrice(resultSet.getInt("price"));
+                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+                products.add(product);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
 }

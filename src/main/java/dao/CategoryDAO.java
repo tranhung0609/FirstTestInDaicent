@@ -95,4 +95,22 @@ public class CategoryDAO {
           return categories;
      }
 
+     public ArrayList<Category> searchByCategory(String name) {
+          ArrayList<Category> categories = new ArrayList<>();
+          try {
+                Connection connection = JDBCUtil.getConnection();
+                Statement statement = connection.createStatement();
+                String sql = "SELECT * FROM category WHERE name LIKE '%" + name + "%'";
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("categoryId");
+                    String cate = resultSet.getString("name");
+                    Category category = new Category(id, cate);
+                    categories.add(category);
+                }
+          } catch (SQLException e) {
+                e.printStackTrace();
+          }
+          return categories;
+     }
 }
