@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class CategoryDetailDao {
     private static CategoryDetailDao instance = new CategoryDetailDao();
@@ -91,8 +93,8 @@ public class CategoryDetailDao {
         return result;
     }
 
-    public ArrayList<CategoryDetail> selectAll() {
-        ArrayList<CategoryDetail> categoryDetails = new ArrayList<>();
+    public List<CategoryDetail> selectAll() {
+        List<CategoryDetail> categoryDetails = new ArrayList<>();
         try {
             Connection connection = JDBCUtil.getConnection();
             Statement statement = connection.createStatement();
@@ -110,8 +112,8 @@ public class CategoryDetailDao {
         return categoryDetails;
     }
 
-    public ArrayList<CategoryDetail> selectByCondition(String condition) {
-        ArrayList<CategoryDetail> categoryDetails = new ArrayList<>();
+    public List<CategoryDetail> selectByCondition(String condition) {
+        List<CategoryDetail> categoryDetails = new ArrayList<>();
         try {
             Connection connection = JDBCUtil.getConnection();
             Statement statement = connection.createStatement();
@@ -129,8 +131,8 @@ public class CategoryDetailDao {
         return categoryDetails;
     }
 
-    public ArrayList<CategoryDetail> searchByCategoryName(String name) {
-        ArrayList<CategoryDetail> categoryDetails = new ArrayList<>();
+    public List<CategoryDetail> searchByCategoryDeTailName(String name) {
+        List<CategoryDetail> categoryDetails = new ArrayList<>();
         try {
             Connection connection = JDBCUtil.getConnection();
             Statement statement = connection.createStatement();

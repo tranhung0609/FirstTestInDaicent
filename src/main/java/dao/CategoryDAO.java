@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryDAO {
     private static CategoryDAO instance = new CategoryDAO();
@@ -76,8 +77,8 @@ public class CategoryDAO {
           return id;
      }
 
-     public ArrayList<Category> selectAll() {
-          ArrayList<Category> categories = new ArrayList<>();
+     public List<Category> selectAll() {
+         List<Category> categories = new ArrayList<>();
           try {
                 Connection connection = JDBCUtil.getConnection();
                 Statement statement = connection.createStatement();
@@ -95,8 +96,8 @@ public class CategoryDAO {
           return categories;
      }
 
-     public ArrayList<Category> searchByCategory(String name) {
-          ArrayList<Category> categories = new ArrayList<>();
+     public List<Category> searchByCategory(String name) {
+         List<Category> categories = new ArrayList<>();
           try {
                 Connection connection = JDBCUtil.getConnection();
                 Statement statement = connection.createStatement();

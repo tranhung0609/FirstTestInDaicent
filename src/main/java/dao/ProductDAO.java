@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAO implements DAOInterface<Product> {
 
@@ -66,9 +67,33 @@ public class ProductDAO implements DAOInterface<Product> {
         return result;
     }
 
+//    @Override
+//    public ArrayList<Product> selectAll() {
+//        ArrayList<Product> products = new ArrayList<Product>();
+//        try {
+//            Connection connection = JDBCUtil.getConnection();
+//            Statement statement = connection.createStatement();
+//            String sql = "SELECT * FROM product";
+//            java.sql.ResultSet resultSet = statement.executeQuery(sql);
+//            while (resultSet.next()) {
+//                Product product = new Product();
+//                product.setId(resultSet.getInt("id"));
+//                product.setName(resultSet.getString("name"));
+//                product.setPrice(resultSet.getInt("price"));
+//                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+//                products.add(product);
+//            }
+//            connection.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return products;
+//    }
+
+
     @Override
-    public ArrayList<Product> selectAll() {
-        ArrayList<Product> products = new ArrayList<Product>();
+    public List<Product> selectAll() {
+        List<Product> products = new ArrayList<Product>();
         try {
             Connection connection = JDBCUtil.getConnection();
             Statement statement = connection.createStatement();
@@ -111,9 +136,9 @@ public class ProductDAO implements DAOInterface<Product> {
         return product;
     }
 
-    @Override
-    public ArrayList<Product> selectByCondition(String condition) {
-        ArrayList<Product> products = new ArrayList<Product>();
+
+    public List<Product> selectByCondition (String condition) {
+        List<Product> products = new ArrayList<Product>();
         try {
             Connection connection = JDBCUtil.getConnection();
             Statement statement = connection.createStatement();
@@ -134,12 +159,35 @@ public class ProductDAO implements DAOInterface<Product> {
         return products;
     }
 
-    public ArrayList<Product> search(String name) {
-        ArrayList<Product> products = new ArrayList<Product>();
+
+    public List<Product> search(String name) {
+        List<Product> products = new ArrayList<Product>();
         try {
             Connection connection = JDBCUtil.getConnection();
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM product WHERE name LIKE '%" + name + "%'";
+            java.sql.ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setPrice(resultSet.getInt("price"));
+                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+                products.add(product);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<Product> searchByPrice(int min, int max) {
+        List<Product> products = new ArrayList<Product>();
+        try {
+            Connection connection = JDBCUtil.getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM product WHERE price BETWEEN " + min + " AND " + max;
             java.sql.ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Product product = new Product();

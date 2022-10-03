@@ -66,9 +66,15 @@ public class Main {
 //        ProductDAO.getInstance().search("Iphone").forEach(System.out::println);
 
 //        Test searchByCategory
-//        CategoryDAO.getInstance().searchByCategory("A").forEach(System.out::println);
+        CategoryDAO.getInstance().searchByCategory("A").forEach(System.out::println);
 
 //        Test searchByCategoryDetail
-        CategoryDetailDao.getInstance().searchByCategoryName("s").forEach(System.out::println);
+//        CategoryDetailDao.getInstance().searchByCategoryDeTailName("s").forEach(System.out::println);
+
+//        Test searchByProduct
+//        ProductDAO.getInstance().search("Iphone").forEach(System.out::println);
+
+//        Test searchByPrice
+        ProductDAO.getInstance().searchByPrice(20000, 200000).forEach(System.out::println);
     }
 }
