@@ -151,21 +151,24 @@ public class CategoryDetailDao {
 
     public CategoryDetail selectCategoryDetail(int id) {
         CategoryDetail categoryDetail = null;
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("select * from categoryDetail where categoryDetailId =?");) {
-            preparedStatement.setInt(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString("name");
-                int categoryId=rs.getInt("categoryId");
-                Category category=categoryDAO.selectCategory(categoryId);
-                categoryDetail = new CategoryDetail(id, name,category);
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from categoryDetail where categoryDetailId =?");
+            {
+                preparedStatement.setInt(1, id);
+                ResultSet rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    int categoryId = rs.getInt("categoryId");
+                    Category category = categoryDAO.selectCategory(categoryId);
+                    categoryDetail = new CategoryDetail(id, name, category);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
         return categoryDetail;
+
     }
-
-
 }

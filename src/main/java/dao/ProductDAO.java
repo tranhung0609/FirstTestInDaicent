@@ -26,7 +26,7 @@ public class ProductDAO implements DAOInterface<Product> {
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            String sql =  "INSERT INTO product" + "  (name, price,categoryDetail) VALUES " +
+            String sql = "INSERT INTO product" + "  (name, price,categoryDetail) VALUES " +
                     " (?,?,?);";
             result = statement.executeUpdate(sql);
             connection.close();
@@ -75,7 +75,6 @@ public class ProductDAO implements DAOInterface<Product> {
     }
 
 
-
     @Override
     public List<Product> selectAll() {
         List<Product> products = new ArrayList<Product>();
@@ -89,7 +88,7 @@ public class ProductDAO implements DAOInterface<Product> {
                 product.setId(resultSet.getInt("id"));
                 product.setName(resultSet.getString("name"));
                 product.setPrice(resultSet.getInt("price"));
-                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailId")));
                 products.add(product);
             }
             connection.close();
@@ -122,7 +121,7 @@ public class ProductDAO implements DAOInterface<Product> {
     }
 
 
-    public List<Product> selectByCondition (String condition) {
+    public List<Product> selectByCondition(String condition) {
         List<Product> products = new ArrayList<Product>();
         try {
             Connection connection = getConnection();
@@ -191,23 +190,27 @@ public class ProductDAO implements DAOInterface<Product> {
 
 
     public List<Product> findAllByCategory(int id) {
-        List<Product>products=new ArrayList<>();
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(" select product.name,product.price, product.categoryDetailId from product\n" +
-                     "join categorydetail c on c.categoryDetailId = product.categoryDetailId\n" +
-                     "join category c2 on c2.categoryId = c.categoryId where c2.categoryId=?;");) {
-            preparedStatement.setInt(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString("name");
-                double price = rs.getDouble("price");
-                int categoryDetailId = rs.getInt("categoryDetailId");
-                CategoryDetail detail=categoryDetailDao.selectCategoryDetail(categoryDetailId);
-                Product product =new Product(id,name,price,detail);
-                products.add(product);
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(" select product.name,product.price, product.categoryDetailId from product\n" +
+                    "join categorydetail c on c.categoryDetailId = product.categoryDetailId\n" +
+                    "join category c2 on c2.categoryId = c.categoryId where c2.categoryId=?;");
+            {
+                preparedStatement.setInt(1, id);
+                ResultSet rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    double price = rs.getDouble("price");
+                    int categoryDetailId = rs.getInt("categoryDetailId");
+                    CategoryDetail detail = categoryDetailDao.selectCategoryDetail(categoryDetailId);
+                    Product product = new Product(id, name, price, detail);
+                    products.add(product);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
         return products;
     }

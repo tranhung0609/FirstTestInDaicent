@@ -119,17 +119,20 @@ public class CategoryDAO {
 
     public Category selectCategory(int id) {
         Category category = null;
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("select categoryId,name from category where categoryId =?");) {
+        try {
+            Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("select categoryId,name from category where categoryId =?"); {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("name");
                 category = new Category(id, name);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+        }catch (SQLException e) {
+            e.printStackTrace();
+
+    }
         return category;
     }
 
