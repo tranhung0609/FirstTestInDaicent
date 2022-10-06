@@ -121,7 +121,7 @@ public class CategoryDAO {
         Category category = null;
         try {
             Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("select categoryId,name from category where categoryId =?"); {
+             PreparedStatement preparedStatement = connection.prepareStatement("select categoryId, name from category where categoryId =?"); {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
