@@ -12,7 +12,8 @@ public class Main {
         ProductDAO productDAO = ProductDAO.getInstance();
         CategoryDAO categoryDAO = CategoryDAO.getInstance();
         CategoryDetailDao categoryDetailDao = CategoryDetailDao.getInstance();
-        System.out.println(productDAO.findAllByCategory(2));
+//        System.out.println(productDAO.findAllByCategory(1));
+        System.out.println(categoryDetailDao.selectCategoryDetail(1));
 
     }
 }

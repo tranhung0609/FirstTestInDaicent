@@ -235,10 +235,11 @@ public class ProductDAO {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("name");
-                int price = rs.getInt("price");
+                double price = rs.getDouble("price");
                 int categoryDetailId = rs.getInt("categoryDetailId");
                 CategoryDetail detail=categoryDetailDao.selectCategoryDetail(categoryDetailId);
-                products.add(new Product(id,name,price,detail));
+                Product product =new Product(id,name,price,detail);
+                products.add(product);
             }
         } catch (SQLException e) {
             e.printStackTrace();

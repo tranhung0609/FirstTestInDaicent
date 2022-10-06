@@ -3,7 +3,7 @@ package model;
 public class Product implements Comparable<Product> {
     private int id;
     private String name;
-    private int price;
+    private double price;
 
     CategoryDetail categoryDetail_id;
 
@@ -19,7 +19,7 @@ public class Product implements Comparable<Product> {
         this.categoryDetail_id = categoryDetail_id;
     }
 
-    public Product(int id, String name, int price, CategoryDetail detail) {
+    public Product(int id, String name, double price, CategoryDetail detail) {
     }
 
     public int getId() {
@@ -38,11 +38,11 @@ public class Product implements Comparable<Product> {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
