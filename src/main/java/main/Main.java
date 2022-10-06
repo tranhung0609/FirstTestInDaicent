@@ -13,8 +13,14 @@ public class Main {
         CategoryDAO categoryDAO = CategoryDAO.getInstance();
         CategoryDetailDao categoryDetailDao = CategoryDetailDao.getInstance();
         System.out.println(productDAO.findAllByCategory(1));
+        System.out.println("--------------------------------------");
+
         System.out.println(categoryDetailDao.selectCategoryDetail(1));
+        System.out.println("--------------------------------------");
+
         System.out.println(categoryDAO.selectCategory(1));
+        System.out.println("--------------------------------------");
+        System.out.println(productDAO.selectAll());
 
 
 
