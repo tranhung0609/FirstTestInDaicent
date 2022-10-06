@@ -1,6 +1,6 @@
 package model;
 
-public class CategoryDetail {
+public class CategoryDetail implements Comparable<CategoryDetail> {
     private int id;
     private String name;
 
@@ -48,7 +48,12 @@ public class CategoryDetail {
         return "CategoryDetail{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", category_id=" + category_id +
-                '}';
+                ", category_id=" + category_id  +
+                '}'+ '\n';
+    }
+
+    @Override
+    public int compareTo(CategoryDetail o) {
+        return this.name.compareTo(o.name);
     }
 }

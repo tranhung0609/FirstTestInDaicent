@@ -11,10 +11,10 @@ public class JDBCUtil {
 
         try {
             // Đăng ký MySQL Driver với DriverManager
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
             // Các thông số
-            String url = "jdbc:mySQL://localhost:3306/daicent";
+            String url = "jdbc:mySQL://localhost:3306/testdaicent";
             String username = "root";
             String password = "123456";
 

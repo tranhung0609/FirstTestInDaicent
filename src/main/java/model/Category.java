@@ -1,10 +1,10 @@
 package model;
 
-public class Category {
+public class Category implements Comparable<Category> {
     private int id;
     private String name;
 
-    public Category() {
+    public Category(String categoryname, String categorydetailname) {
     }
 
     public Category(int id, String name) {
@@ -31,8 +31,12 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Category o) {
+        return this.name.compareTo(o.name);
     }
 }
