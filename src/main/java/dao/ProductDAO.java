@@ -12,7 +12,7 @@ import java.util.List;
 
 import static database.JDBCUtil.getConnection;
 
-public class ProductDAO {
+public class ProductDAO implements DAOInterface<Product> {
 
     public static ProductDAO getInstance() {
         return new ProductDAO();
@@ -20,210 +20,175 @@ public class ProductDAO {
 
     private CategoryDetailDao categoryDetailDao = CategoryDetailDao.getInstance();
 
-//    @Override
-//    public int insert(Product t) {
-////        int result = 0;
-////        try {
-////            Connection connection = getConnection();
-////            Statement statement = connection.createStatement();
-////            String sql =  "INSERT INTO product" + "  (name, price,categoryDetail) VALUES " +
-////                    " (?,?,?);";
-////            result = statement.executeUpdate(sql);
-////            connection.close();
-////            System.out.println("Insert successfully!");
-////        } catch (SQLException e) {
-////            e.printStackTrace();
-////        }
-////        return 0;
-//        return 0;
-//    }
-//
-//
-//    @Override
-//    public int update(Product t) {
-//        int result = 0;
-//        try {
-//            Connection connection = getConnection();
-//            String sql = "UPDATE product SET name = ?, price = ?, categoryDetailId = ? WHERE id = ?";
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            preparedStatement.setString(1, t.getName());
-//            preparedStatement.setInt(2, t.getPrice());
-//            preparedStatement.setInt(3, t.getId());
-//            preparedStatement.setInt(4, t.getCategoryDetail_id().getId());
-//            result = preparedStatement.executeUpdate();
-//            connection.close();
-//            System.out.println("Update successfully!");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-//
-//    @Override
-//    public int delete(Product t) {
-//        int result = 0;
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "DELETE FROM product WHERE id = " + t.getId();
-//            result = statement.executeUpdate(sql);
-//            connection.close();
-//            System.out.println("Delete successfully!");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-//
-//
-//
-//    @Override
-//    public List<Product> selectAll() {
-//        List<Product> products = new ArrayList<Product>();
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM product";
-//            java.sql.ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                Product product = new Product();
-//                product.setId(resultSet.getInt("id"));
-//                product.setName(resultSet.getString("name"));
-//                product.setPrice(resultSet.getInt("price"));
-//                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
-//                products.add(product);
-//            }
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return products;
-//    }
-//
-//    @Override
-//    public Product selectById(Product t) {
-//        Product product = null;
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM product WHERE id = " + t.getId();
-//            java.sql.ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                product = new Product();
-//                product.setId(resultSet.getInt("id"));
-//                product.setName(resultSet.getString("name"));
-//                product.setPrice(resultSet.getInt("price"));
-//                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
-//            }
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return product;
-//    }
-//
-//
-//    public List<Product> selectByCondition (String condition) {
-//        List<Product> products = new ArrayList<Product>();
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM product WHERE " + condition;
-//            java.sql.ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                Product product = new Product();
-//                product.setId(resultSet.getInt("id"));
-//                product.setName(resultSet.getString("name"));
-//                product.setPrice(resultSet.getInt("price"));
-//                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
-//                products.add(product);
-//            }
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return products;
-//    }
-//
-//
-//    public List<Product> search(String name) {
-//        List<Product> products = new ArrayList<Product>();
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM product WHERE name LIKE '%" + name + "%'";
-//            java.sql.ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                Product product = new Product();
-//                product.setId(resultSet.getInt("id"));
-//                product.setName(resultSet.getString("name"));
-//                product.setPrice(resultSet.getInt("price"));
-//                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
-//                products.add(product);
-//            }
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return products;
-//    }
-//
-//    public List<Product> searchByPrice(int min, int max) {
-//        List<Product> products = new ArrayList<Product>();
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM product WHERE price BETWEEN " + min + " AND " + max;
-//            java.sql.ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                Product product = new Product();
-//                product.setId(resultSet.getInt("id"));
-//                product.setName(resultSet.getString("name"));
-//                product.setPrice(resultSet.getInt("price"));
-//                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
-//                products.add(product);
-//            }
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return products;
-//    }
-
-    private String jdbcURL = "jdbc:mysql://localhost:3306/testdaicent?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "123456";
-
-    protected Connection getConnection() {
-        Connection connection = null;
+    @Override
+    public int insert(Product t) {
+        int result = 0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql =  "INSERT INTO product" + "  (name, price,categoryDetail) VALUES " +
+                    " (?,?,?);";
+            result = statement.executeUpdate(sql);
+            connection.close();
+            System.out.println("Insert successfully!");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return connection;
+        return 0;
     }
 
-    private void printSQLException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                e.printStackTrace(System.err);
-                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                System.err.println("Message: " + e.getMessage());
-                Throwable t = ex.getCause();
-                while (t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
-            }
+
+    @Override
+    public int update(Product t) {
+        int result = 0;
+        try {
+            Connection connection = getConnection();
+            String sql = "UPDATE product SET name = ?, price = ?, categoryDetailId = ? WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, t.getName());
+            preparedStatement.setDouble(2, t.getPrice());
+            preparedStatement.setInt(3, t.getId());
+            preparedStatement.setInt(4, t.getCategoryDetail_id().getId());
+            result = preparedStatement.executeUpdate();
+            connection.close();
+            System.out.println("Update successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return result;
     }
+
+    @Override
+    public int delete(Product t) {
+        int result = 0;
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "DELETE FROM product WHERE id = " + t.getId();
+            result = statement.executeUpdate(sql);
+            connection.close();
+            System.out.println("Delete successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+    @Override
+    public List<Product> selectAll() {
+        List<Product> products = new ArrayList<Product>();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM product";
+            java.sql.ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setPrice(resultSet.getInt("price"));
+                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+                products.add(product);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    @Override
+    public Product selectById(Product t) {
+        Product product = null;
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM product WHERE id = " + t.getId();
+            java.sql.ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setPrice(resultSet.getInt("price"));
+                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
+    }
+
+
+    public List<Product> selectByCondition (String condition) {
+        List<Product> products = new ArrayList<Product>();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM product WHERE " + condition;
+            java.sql.ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setPrice(resultSet.getInt("price"));
+                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+                products.add(product);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+
+    public List<Product> search(String name) {
+        List<Product> products = new ArrayList<Product>();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM product WHERE name LIKE '%" + name + "%'";
+            java.sql.ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setPrice(resultSet.getInt("price"));
+                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+                products.add(product);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<Product> searchByPrice(int min, int max) {
+        List<Product> products = new ArrayList<Product>();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM product WHERE price BETWEEN " + min + " AND " + max;
+            java.sql.ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setPrice(resultSet.getInt("price"));
+                product.setCategoryDetail_id(categoryDetailDao.selectById(resultSet.getInt("categoryDetailid")));
+                products.add(product);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
 
     public List<Product> findAllByCategory(int id) {
         List<Product>products=new ArrayList<>();

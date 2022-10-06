@@ -23,40 +23,6 @@ public class CategoryDetailDao {
     private CategoryDetailDao() {
     }
 
-    private String jdbcURL = "jdbc:mysql://localhost:3306/testdaicent?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "123456";
-
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return connection;
-    }
-
-    private void printSQLException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                e.printStackTrace(System.err);
-                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                System.err.println("Message: " + e.getMessage());
-                Throwable t = ex.getCause();
-                while (t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
-            }
-        }
-    }
 
     public CategoryDetail selectById(int id) {
         CategoryDetail categoryDetail = null;
@@ -77,112 +43,112 @@ public class CategoryDetailDao {
         return categoryDetail;
     }
 
-//    public int insert(CategoryDetail categoryDetail) {
-//        int id = 0;
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "INSERT INTO categorydetail (name) VALUES ('" + categoryDetail.getName() + "')";
-//            statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
-//            ResultSet resultSet = statement.getGeneratedKeys();
-//            if (resultSet.next()) {
-//                id = resultSet.getInt(1);
-//            }
-//            connection.close();
-//            System.out.println("Insert successfully!");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return id;
-//    }
-//
-//    public int update(CategoryDetail categoryDetail) {
-//        int result = 0;
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "UPDATE categorydetail SET name = '" + categoryDetail.getName() + "' WHERE categoryId = '" + categoryDetail.getId() + "'";
-//            result = statement.executeUpdate(sql);
-//            connection.close();
-//            System.out.println("Update successfully!");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-//
-//    public int delete(CategoryDetail categoryDetail) {
-//        int result = 0;
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "DELETE FROM categorydetail WHERE categoryId = '" + categoryDetail.getId() + "'";
-//            result = statement.executeUpdate(sql);
-//            connection.close();
-//            System.out.println("Delete successfully!");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-//
-//    public List<CategoryDetail> selectAll() {
-//        List<CategoryDetail> categoryDetails = new ArrayList<>();
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM categorydetail";
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                int id = resultSet.getInt("categoryDetailId");
-//                String name = resultSet.getString("name");
-//                CategoryDetail categoryDetail = new CategoryDetail(id, name);
-//                categoryDetails.add(categoryDetail);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return categoryDetails;
-//    }
-//
-//    public List<CategoryDetail> selectByCondition(String condition) {
-//        List<CategoryDetail> categoryDetails = new ArrayList<>();
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM categorydetail WHERE " + condition;
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                int id = resultSet.getInt("categoryDetailId");
-//                String name = resultSet.getString("name");
-//                CategoryDetail categoryDetail = new CategoryDetail(id, name);
-//                categoryDetails.add(categoryDetail);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return categoryDetails;
-//    }
-//
-//    public List<CategoryDetail> searchByCategoryDeTailName(String name) {
-//        List<CategoryDetail> categoryDetails = new ArrayList<>();
-//        try {
-//            Connection connection = getConnection();
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM categorydetail WHERE name LIKE '%" + name + "%'";
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                int id = resultSet.getInt("categoryDetailId");
-//                String cate = resultSet.getString("name");
-//                CategoryDetail categoryDetail = new CategoryDetail(id, cate);
-//                categoryDetails.add(categoryDetail);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return categoryDetails;
-//    }
-//
+    public int insert(CategoryDetail categoryDetail) {
+        int id = 0;
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "INSERT INTO categorydetail (name) VALUES ('" + categoryDetail.getName() + "')";
+            statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+            connection.close();
+            System.out.println("Insert successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public int update(CategoryDetail categoryDetail) {
+        int result = 0;
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "UPDATE categorydetail SET name = '" + categoryDetail.getName() + "' WHERE categoryId = '" + categoryDetail.getId() + "'";
+            result = statement.executeUpdate(sql);
+            connection.close();
+            System.out.println("Update successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public int delete(CategoryDetail categoryDetail) {
+        int result = 0;
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "DELETE FROM categorydetail WHERE categoryId = '" + categoryDetail.getId() + "'";
+            result = statement.executeUpdate(sql);
+            connection.close();
+            System.out.println("Delete successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<CategoryDetail> selectAll() {
+        List<CategoryDetail> categoryDetails = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM categorydetail";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("categoryDetailId");
+                String name = resultSet.getString("name");
+                CategoryDetail categoryDetail = new CategoryDetail(id, name);
+                categoryDetails.add(categoryDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoryDetails;
+    }
+
+    public List<CategoryDetail> selectByCondition(String condition) {
+        List<CategoryDetail> categoryDetails = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM categorydetail WHERE " + condition;
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("categoryDetailId");
+                String name = resultSet.getString("name");
+                CategoryDetail categoryDetail = new CategoryDetail(id, name);
+                categoryDetails.add(categoryDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoryDetails;
+    }
+
+    public List<CategoryDetail> searchByCategoryDeTailName(String name) {
+        List<CategoryDetail> categoryDetails = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM categorydetail WHERE name LIKE '%" + name + "%'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("categoryDetailId");
+                String cate = resultSet.getString("name");
+                CategoryDetail categoryDetail = new CategoryDetail(id, cate);
+                categoryDetails.add(categoryDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoryDetails;
+    }
+
     public CategoryDetail selectCategoryDetail(int id) {
         CategoryDetail categoryDetail = null;
         try (Connection connection = getConnection();
